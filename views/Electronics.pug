@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  - let results = [{Gadget:"Laptop", Price: 50000, Storage:64},{Gadget:"Mobile", Price: 20000, Storage:128},{Gadget:"ipad", Price: 100000, Storage:256},] 
+  .container-fluid 
+      .row
+        each electr, index in results
+            .col-sm-2(onclick=`buy(${index})`)
+              p Gadget: #{electr.Gadget}
+              p Price : #{electr.Price}
+              p Storage: #{electr.Storage}
+  script.
+    function buy(index) {
+      alert(`you purchased item ${index}`);
+    }
+          
+
+  

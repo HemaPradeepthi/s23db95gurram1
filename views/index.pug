@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to my page. I'm Hema Pradeepthi 
+  button(type="button", class="btn btn-secondary" onclick = "goFaster()") Press Me for contents.
+  div#faster Increase the speed
+  script.
+    var mph = 20;
+    var change = 1;
+    function goFaster() {
+      mph += change;
+      change += 1;
+      document.getElementById('faster').innerHTML = "MPH " +mph+ " with  Change " +change;
+    }
+    br
+  a(href="/Electronics") click here for Electronics results
