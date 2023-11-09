@@ -6,13 +6,15 @@ var Electronics = require('../models/electronics');
 
 // List of all electronicss
 exports.electronics_list = async function(req, res) {
+    
     try{
     theelectronics = await Electronics.find();
     res.send(theelectronics);
     }
     catch(err){
     res.status(500);
-    res.send(`{"error": ${err}}`);
+    res.send(`{"error": ${err}}`);\
+
     }
     };
 
