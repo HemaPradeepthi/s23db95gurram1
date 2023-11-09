@@ -23,9 +23,29 @@ exports.electronics_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: electronics detail: ' + req.params.id);
 };
 // Handle electronics create on POST.
-exports.electronics_create_post = function(req, res) {
-res.send('NOT IMPLEMENTED: electronics create POST');
-};
+// exports.electronics_create_post = function(req, res) {
+// res.send('NOT IMPLEMENTED: electronics create POST');
+// };
+
+exports.electronic_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new electronic();
+    // We are looking for a body, since POST does not have query parameters.
+    // Even though bodies can be in many different formats, we will be picky
+    // and require that it be a json object
+    // {"electronic_type":"goat", "cost":12, "size":"large"}
+    document.Gadget = req.body.Gadget;
+    document.Price = req.body.Price;
+    document.Storage = req.body.Storage;
+    try{
+    let result = await document.save();
+    res.send(result);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
 // Handle electronics delete form on DELETE.
 exports.electronics_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: electronics delete DELETE ' + req.params.id);
