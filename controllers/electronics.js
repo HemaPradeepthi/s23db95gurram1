@@ -13,15 +13,28 @@ exports.electronics_list = async function(req, res) {
     }
     catch(err){
     res.status(500);
-    res.send(`{"error": ${err}}`);\
+    res.send(`{"error": ${err}}`);
 
     }
     };
 
 // for a specific electronics.
-exports.electronics_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: electronics detail: ' + req.params.id);
+// exports.electronics_detail = function(req, res) {
+// res.send('NOT IMPLEMENTED: electronics detail: ' + req.params.id);
+// };
+
+
+exports.electronics_detail = async function(req, res) {
+console.log("detail" + req.params.id)
+try {
+result = await Electronics.findById( req.params.id)
+res.send(result)
+} catch (error) {
+res.status(500)
+res.send(`{"error": document for id ${req.params.id} not found`);
+}
 };
+
 // Handle electronics create on POST.
 // exports.electronics_create_post = function(req, res) {
 // res.send('NOT IMPLEMENTED: electronics create POST');
