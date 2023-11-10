@@ -46,7 +46,7 @@ exports.electronic_create_post = async function(req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"electronic_type":"goat", "cost":12, "size":"large"}
+    // {"electronic_type":"goat", "Price":12, "Storage":"large"}
     document.Gadget = req.body.Gadget;
     document.Price = req.body.Price;
     document.Storage = req.body.Storage;
@@ -64,8 +64,28 @@ exports.electronics_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: electronics delete DELETE ' + req.params.id);
 };
 // Handle electronics update form on PUT.
-exports.electronics_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: electronics update PUT' + req.params.id);
+// exports.electronics_update_put = function(req, res) {
+// res.send('NOT IMPLEMENTED: electronics update PUT' + req.params.id);
+// };
+
+// Handle electronics update form on PUT.
+exports.electronics_update_put = async function(req, res) {
+console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+try {
+let toUpdate = await Electronics.findById( req.params.id)
+// Do updates of properties
+if(req.body.Gadget)toUpdate.Gadget = req.body.Gadget;
+if(req.body.Price) toUpdate.Price = req.body.Price;
+if(req.body.Storage) toUpdate.Storage = req.body.Storage;
+let result = await toUpdate.save();
+console.log("Sucess " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+}
 };
 
 
